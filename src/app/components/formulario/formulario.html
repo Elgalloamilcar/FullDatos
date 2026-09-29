@@ -1,0 +1,44 @@
+<div class="contenedor-formulario">
+  <div class="tarjeta-form">
+    <h2>{{ editando ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+
+    <div class="grupo-input">
+      <label>Nombre y Apellido</label>
+      <input type="text" [(ngModel)]="cliente.nombre_apellido" placeholder="Ej. Juan Pérez">
+    </div>
+
+    <div class="grupo-input">
+      <label>Dirección</label>
+      <input type="text" [(ngModel)]="cliente.direccion" placeholder="Ej. Calle Falsa 123">
+    </div>
+
+    <div class="grupo-input">
+      <label>Teléfono</label>
+      <input type="text" [(ngModel)]="cliente.telefono" placeholder="Ej. +54 9 11...">
+    </div>
+
+    <div class="grupo-input">
+      <label>Caja NAP / Puerto</label>
+      <input type="text" [(ngModel)]="cliente.caja_nap" placeholder="Ej. NAP-04 P2">
+    </div>
+
+    <div class="grupo-input">
+      <label>Plan Contratado</label>
+      <select [(ngModel)]="cliente.plan">
+        <option value="Internet 100 MB">Internet 100 MB</option>
+        <option value="Internet 300 MB">Internet 300 MB</option>
+        <option value="Internet + Cable 100 MB">Internet + Cable 100 MB</option>
+        <option value="Internet + Cable 300 MB">Internet + Cable 300 MB</option>
+      </select>
+    </div>
+
+    <div class="botones">
+      <button class="btn-secundario" (click)="cancelar()" [disabled]="guardando">Cancelar</button>
+
+      <button class="btn-guardar" (click)="guardarCliente()" [disabled]="guardando">
+        <!-- Mostramos "Guardando..." si se está guardando, sino, evaluamos si estamos editando o creando -->
+        {{ guardando ? 'Guardando...' : (editando ? 'Actualizar Cliente' : 'Guardar Cliente') }}
+      </button>
+    </div>
+  </div>
+</div>

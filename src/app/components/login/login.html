@@ -1,0 +1,25 @@
+<div class="contenedor-login">
+  <div class="tarjeta-login">
+    <h2>Control de Red</h2>
+    
+    <div class="grupo-input">
+      <label>Correo Electrónico</label>
+      <input type="email" [(ngModel)]="email" placeholder="admin@red.com">
+    </div>
+
+    <div class="grupo-input">
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="clave" placeholder="••••••••">
+    </div>
+
+    <!-- Este mensaje solo aparece si hay un error -->
+    <p class="mensaje-error" *ngIf="mensajeError">
+      {{ mensajeError }}
+    </p>
+
+    <!-- El botón se desactiva mientras está consultando a la base de datos -->
+    <button (click)="ingresar()" [disabled]="cargando">
+      {{ cargando ? 'Verificando...' : 'Ingresar al Panel' }}
+    </button>
+  </div>
+</div>

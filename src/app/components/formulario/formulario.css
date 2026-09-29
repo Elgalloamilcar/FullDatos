@@ -1,0 +1,84 @@
+.contenedor-formulario {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.tarjeta-form {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.grupo-input {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* El tamaño de 16px evita que el celular haga zoom automático al tocar la caja */
+input, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; 
+  background-color: #fff;
+}
+
+select {
+  cursor: pointer;
+}
+
+/* Alinea los botones uno al lado del otro */
+.botones {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+button {
+  flex: 1; /* Hace que ambos botones ocupen el 50% del ancho */
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-principal {
+  background-color: #0056b3;
+  color: white;
+}
+
+.btn-secundario {
+  background-color: #e2e6ea;
+  color: #333;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

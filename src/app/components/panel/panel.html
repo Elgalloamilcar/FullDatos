@@ -1,0 +1,88 @@
+<div class="contenedor-panel">
+  <!-- Cabecera y Contador -->
+  <header class="cabecera">
+    <div style="display: flex; gap: 10px; flex-direction: column;">
+      <button class="btn-nuevo" (click)="irANuevoCliente()">+ Nuevo Cliente</button>
+      <button class="btn-secundario" (click)="alternarVista()">
+        {{ viendoActivos ? 'Ver Inactivos' : 'Ver Activos' }}
+      </button>
+      <button class="btn-salir" (click)="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+    <h2>Panel de Control</h2>
+    <div class="tarjeta-contador">
+      <p>Clientes Activos</p>
+      <h3>{{ clientesFiltrados.length }}</h3>
+    </div>
+  </header>
+
+  <p class="mensaje-carga" *ngIf="cargando">Cargando red...</p>
+  <!-- Buscador y Filtros -->
+  <div class="filtros" *ngIf="!cargando">
+    <input type="text" placeholder="Buscar cliente..." [(ngModel)]="textoBusqueda" class="input-buscar">
+
+    <select [(ngModel)]="cajaFiltro" class="select-caja">
+      <option value="">Todas las NAP</option>
+      <option *ngFor="let caja of cajasNapUnicas" [value]="caja">
+        {{ caja }}
+      </option>
+    </select>
+  </div>
+  <!-- Tabla de Clientes -->
+  <div class="contenedor-tabla" *ngIf="!cargando">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente y Tel</th>
+          <th>Dirección</th>
+          <th>Caja NAP</th>
+          <th>Plan</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientesFiltrados">
+          <td data-label="ID">#{{ c.id }}</td>
+          <td data-label="Cliente">
+            <strong>{{ c.nombre_apellido }}</strong><br>
+            <small>{{ c.telefono }}</small>
+          </td>
+          <td data-label="Dirección">{{ c.direccion }}</td>
+          <td data-label="Caja nap"><span class="caja-tag">{{ c.caja_nap }}</span></td>
+          <td data-label="Plan">{{ c.plan }}</td>
+          <td data-label="Estado" style="text-align: center;">
+            <!-- ESTO ES PARA DEPURAR: Ver qué fecha lee Angular -->
+            <small style="display:block; margin-bottom: 5px;">
+              Vence: {{ c.fecha_vencimiento }}
+            </small>
+            <!-- Semáforo automático (ya no se hace clic aquí) -->
+            <span class="badge" [ngClass]="estaEnDeuda(c.fecha_vencimiento) ? 'badge-deuda' : 'badge-ok'">
+              {{ estaEnDeuda(c.fecha_vencimiento) ? 'Debe' : 'Al día' }}
+            </span>
+            <br>
+            <!-- Nuevo botón para registrar el cobro (solo se muestra en activos) -->
+            <button *ngIf="viendoActivos" class="btn-secundario"
+              style="margin-top: 8px; font-size: 11px; padding: 4px 8px;" (click)="registrarPago(c)">
+              Cobrar Mes
+            </button>
+          </td>
+          <td data-label="Acciones" style="text-align: center; display: flex; gap: 5px; justify-content: center;">
+
+            <!-- Si estamos viendo a los activos, mostramos Editar y Eliminar -->
+            <ng-container *ngIf="viendoActivos">
+              <button class="btn-editar" (click)="editarCliente(c)">Editar</button>
+              <button class="btn-baja" (click)="darDeBaja(c)">Eliminar</button>
+            </ng-container>
+
+            <!-- Si estamos viendo inactivos, solo mostramos Reactivar -->
+            <ng-container *ngIf="!viendoActivos">
+              <button class="btn-guardar" (click)="reactivarCliente(c)">Reactivar</button>
+            </ng-container>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
